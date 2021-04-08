@@ -1,4 +1,4 @@
-# TextMate
+# TextMate with Transparent Background
 
 ## Download
 
