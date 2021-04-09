@@ -330,6 +330,7 @@ static NSString* const kFoldingsColumnIdentifier  = @"foldings";
 {
 	if(theme_ptr theme = _textView.theme)
 	{
+		[[self window] setOpaque:!theme->is_transparent() && !theme->gutter_styles().is_transparent()];
 		[textScrollView setBackgroundColor:[NSColor colorWithCGColor:theme->background(to_s(self.document.fileType))]];
 		[textScrollView setScrollerKnobStyle:theme->is_dark() ? NSScrollerKnobStyleLight : NSScrollerKnobStyleDark];
 
