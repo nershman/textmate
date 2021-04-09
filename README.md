@@ -1,5 +1,32 @@
 # TextMate
 
+## differences
+
+https://github.com/nershman/textmate/tree/21344807911579c144bdc7b5004183d0e98363a3
+21344807911579c144bdc7b5004183d0e98363a3
+
+
+Avoid potential crash by not updating window's opaque property:
+6ffd0f2e92466355de0e81ed915b8e32daa8a3de
+6ffd0f2e92466355de0e81ed915b8e32daa8a3de
+
+This does completely remove support for transparent themes, but any recent version of macOS would not support it anyway due to layer-backed views.
+
+The crash resulting from setting opaque is because of recursion: After session restore, the window will calculate shadow, this triggers a “user defaults did change” notification, which updates theme of text view, which sets opaque, which re-calculates shadow and tries to recursively obtain a non-recursive mutex.
+
+https://github.com/nershman/textmate/commit/6ffd0f2e92466355de0e81ed915b8e32daa8a3de
+
+
+
+https://github.com/nershman/textmate/tree/66c1bc7f78c96076d0e8148bd7cc9835cd8207cb
+66c1bc7f78c96076d0e8148bd7cc9835cd8207cb
+Clear background when using a theme with transparent background
+
+This partially reverts 6ffd0f2
+
+While we do not support transparent themes per se, we still use the alpha colors and thus would previously fill the background using alpha, into a layer that we hadn’t previously cleared.
+
+
 ## Download
 
 You can [download TextMate from here](https://macromates.com/download).
